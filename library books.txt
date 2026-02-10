@@ -1,0 +1,61 @@
+
+books = {}
+
+n = int(input("Enter number of books: "))
+
+for i in range(n):
+    print(f"\nEnter details of book {i+1}")
+    book_id = int(input("Book ID: "))
+    title = input("Title: ")
+    author = input("Author: ")
+    price = float(input("Price: "))
+    genres = input("Genres (comma-separated): ").split(",")
+
+    genres = [g.strip() for g in genres]
+
+    books[book_id] = {
+        "title": title,
+        "author": author,
+        "price": price,
+        "genres": genres
+    }
+
+print("\n----- Library Books -----")
+for bid, details in books.items():
+    print(f"\nBook ID: {bid}")
+    print("Title:", details["title"])
+    print("Author:", details["author"])
+    print("Price:", details["price"])
+    print("Genres:", details["genres"])
+
+prices = [details["price"] for details in books.values()]
+max_price = max(prices)
+min_price = min(prices)
+
+print("\nMost Expensive Book:")
+for details in books.values():
+    if details["price"] == max_price:
+        print(details["title"], "-", details["price"])
+
+print("\nCheapest Book:")
+for details in books.values():
+    if details["price"] == min_price:
+        print(details["title"], "-", details["price"])
+
+search_genre = input("\nEnter genre to search: ").strip()
+print(f"Books in genre '{search_genre}':")
+for details in books.values():
+    if search_genre in details["genres"]:
+        print(details["title"])
+
+authors = set()
+for details in books.values():
+    authors.add(details["author"])
+
+print("\nUnique Authors:")
+for author in authors:
+    print(author)
+
+titles = tuple(details["title"] for details in books.values())
+print("\nTuple of Book Titles:")
+print(titles)
